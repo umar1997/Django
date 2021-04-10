@@ -1,0 +1,38 @@
+Connecting to PostgreSQL with Django
+-------------------------------------
+Youtube Video:
+https://www.youtube.com/watch?v=t6RbanOhna4&ab_channel=PrettyPrinted
+Course PostgreSQL with Django:
+https://prettyprinted.com/djangodata
+
+Commands
+--------
+1. Migrate Database: Means take some instructions to modify the database
+python manage.py migrate
+
+2. Create Superuser in Django
+python manage.py createsuperuser
+
+
+
+Initialize
+----------
+python manage.py migrate
+
+Create New Model
+----------------
+1. When you add a new model that you have defined in models.py, It creates it.
+python manage.py makemigrations first_app
+2. Migrate those models
+python manage.py migrate
+
+To View the Models
+------------------
+python manage.py shell
+from first_app.models import Topic
+print(Topic.objects.all())
+
+t = Topic(topic_name = "Social Network")
+t.save()
+print(Topic.objects.all())
+quit()

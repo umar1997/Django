@@ -1,0 +1,62 @@
+SET UP PROJECT AND APP
+----------------------
+# In project directory make project with this.
+django-admin startproject firstProject(Name of Project)
+
+# Run to see if django set up is properly working
+python manage.py runserver
+
+# Create an application in the directory
+python manage.py startapp first_app(Name of App)
+
+To let Project know of our App 		OR 		Copy Another App to a Project File
+-------------------------------------------------------------------------------------------
+1. Go to Settings.py
+2. In INSTALLED_APPS
+
+INSTALLED_APPS = [
+	...
+	'first_app',
+    'rest_framework',  # Add when adding rest_framework.serializers
+]
+
+Create first_project/templates/
+----------------------------------------
+3. Go to Settings.py
+4. TEMPLATE_DIR = os.path.join(BASE_DIR, "templates") under BASE_DIR
+5. TEMPLATES = [
+	...
+	'DIRS': [TEMPLATE_DIR],
+]
+
+
+Create first_project/static/Images
+----------------------------------------
+6. Go to Settings.py
+STATIC_DIR = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
+7. Add an Image in the image folder and access it through
+http://127.0.0.1:8000/static/Images/Desert.jpg
+
+Create urls.py within first_app
+-------------------------------
+# firstProject/urls.py
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('', include('first_app.urls')),
+    path('admin/', admin.site.urls),
+]
+
+# first_app/urls.py
+from django.urls import include, path
+from first_app import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+

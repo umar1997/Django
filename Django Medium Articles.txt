@@ -1,0 +1,21 @@
+Django Queries
+https://docs.djangoproject.com/en/dev/topics/db/queries/
+
+
+https://medium.com/django-rest/django-rest-framework-b3028b3f0b9
+
+Part 1- Settings and Creating Models
+Part 2- Admin Site Customization
+Part 3- Creating views and serializers
+Part 4- Dynamic Nested Serialization
+Part 5- Uploading Images
+Part 6- Enabling Cors
+Part 7- JWT Authentication
+Part 8- Login and Register
+Part 9- Change Password and Update Profile
+Part 10- Logout
+
+https://medium.com/@sarit.r/djangofilterbackend-searchfilter-orderingfilter-example-dbe8e56ff1fc
+
+Nested Serializer
+https://django.cowhite.com/blog/create-and-update-django-rest-framework-nested-serializers/

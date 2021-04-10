@@ -1,0 +1,3 @@
+https://codeloop.org/django-rest-framework-course-for-beginners/
+https://codeloop.org/django-how-to-send-email-to-gmail-account/
+https://codeloop.org/django-pagination-complete-example/
