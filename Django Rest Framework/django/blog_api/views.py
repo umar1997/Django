@@ -30,7 +30,7 @@ class PostList(generics.ListAPIView): # viewsets.ModelViewSet.PostUserWritePermi
 # RetrieveDestroyAPIView: Retrieve and Destroy Items
 class PostDetail(generics.RetrieveAPIView): # viewsets.ModelViewSet.PostUserWritePermission
 
-    # If type 127.0.0.1:8000/api/<title name> it will get that
+    # If type 127.0.0.1:8000/api/<slug> it will get that object
     serializer_class = PostSerializer
     # pk is coming from the url
     def get_object(self, queryset=None, **kwargs):
@@ -84,7 +84,7 @@ class PostDetail(generics.RetrieveAPIView): # viewsets.ModelViewSet.PostUserWrit
 #     permission_classes = [IsAuthenticated]
 #     serializer_class = PostSerializer
 
-# If type 127.0.0.1:8000/api/<title name> it will get that
+# If type 127.0.0.1:8000/api/<slug> it will get that
 #     def get_object(self, queryset=None, **kwargs):
 #         item = self.kwargs.get('pk')
 #         return get_object_or_404(Post, slug=item)
@@ -95,34 +95,28 @@ class PostDetail(generics.RetrieveAPIView): # viewsets.ModelViewSet.PostUserWrit
 
 
 
-# Post Search
-class PostListDetailfilter(generics.ListAPIView):
 
+################## CRUD
+
+
+# class CreatePost(APIView):
+#     permission_classes = [permissions.IsAuthenticated]
+#     parser_classes = [MultiPartParser, FormParser]
+
+#     def post(self, request, format=None):
+#         print(request.data)
+#         serializer = PostSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CreateAnyPost(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    filter_backends = [filters.SearchFilter]
-    # '^' Starts-with search.
-    # '=' Exact matches.
-    search_fields = ['^slug']
-
-# class CreateAnyPost(generics.CreateAPIView):
-#     permission_classes = [permissions.IsAuthenticated]
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
-
-
-class CreatePost(APIView):
-    permission_classes = [permissions.IsAuthenticated]
-    parser_classes = [MultiPartParser, FormParser]
-
-    def post(self, request, format=None):
-        print(request.data)
-        serializer = PostSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class AdminPostDetail(generics.RetrieveAPIView):
@@ -163,7 +157,7 @@ Used for read or delete endpoints to represent a single model instance.
 # RetrieveUpdateDestroyAPIView
 Used for read-write-delete endpoints to represent a single model instance.
 """
-# CUSTOM PERMISSIONS
+############### CUSTOM PERMISSIONS
 # For custom permissions we need to override the BasePermissions
 # - has_permission or - has_object_permission
 
@@ -186,6 +180,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission)
 
 
 ############### Filters and Search
+# Static Filtering
 class PostList(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = PostSerializer
@@ -193,4 +188,49 @@ class PostList(generics.ListAPIView):
     # queryset = Post.objects.all()
     # for custom queryset use
     def get_queryset(self):
+        user = self.request.user
+        return Post.objects.filter(author=user)
 
+# Dynamic Filtering
+class PostDetail(generics.RetrieveAPIView):
+
+    # If type 127.0.0.1:8000/api/<slug> it will get that object
+    serializer_class = PostSerializer
+    # pk is coming from the url
+    def get_object(self, queryset=None, **kwargs):
+        item = self.kwargs.get('pk')
+        return get_object_or_404(Post, slug=item)
+
+## OR
+
+class PostDetail(generics.RetrieveAPIView):
+    serializer_class = PostSerializer
+    def get_queryset(self):
+        slug = self.request.query_params.get('slug',None)
+        return Post.objects.filter(slug=slug)
+
+# In urls.py
+# path('posts/', PostDetail.as_view(), name='detailpost'),
+# 127.0.0.1:8000/api/posts/?slug=djang0-rest-framework
+
+
+# Django filter backend
+pip install django-filter
+INSTALLED_APPS = ['django_filters']
+import django_filters
+
+class ProductFilter(django_filters.Filterset):
+or 
+from rest_framework import filters
+class PostListDetailfilter(generics.ListAPIView):
+
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    filter_backends = [filters.SearchFilter]
+    # '^' Starts-with search.
+    # '=' Exact matches.
+    # '$' Regex Search 
+    search_fields = ['^slug']
+
+# 127.0.0.1:8000/api/search/?search=django
+# ?(search) This search is a keyword

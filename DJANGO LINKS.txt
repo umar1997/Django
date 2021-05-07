@@ -1,6 +1,8 @@
 DJANGO
 Main Playlist
 https://www.youtube.com/playlist?list=PLOLrQ9Pn6caw0PjVwymNc64NkUNbZlhFw
+https://www.youtube.com/playlist?list=PLx-q4INfd95EsUuON1TIcjnFZSqUfMf7s
+https://www.youtube.com/playlist?list=PLLz6Bi1mIXhEXEnfAgUJXB0vLjHkyee6q
 
 Coding with Mitch
 https://www.youtube.com/watch?v=44qdTGbWY8c&list=PLgCYzUzKIBE9Pi8wtx8g55fExDAPXBsbV&ab_channel=CodingWithMitch
@@ -9,8 +11,9 @@ https://www.youtube.com/watch?v=0UKWcv0og-Y&list=PLgCYzUzKIBE9KUJZJUmnDFYQfVyXYj
 Crash Course (Practice)
 https://youtu.be/B38aDwUpcFc
 
-New RestFramework Playlist
-https://www.youtube.com/watch?v=rJWAGQ0JxxI&list=PLx-q4INfd95EsUuON1TIcjnFZSqUfMf7s&ab_channel=SemyColon
+AWS and S3
+https://www.youtube.com/watch?v=jdaydvAs3a4&ab_channel=PriyanshuGupta
+
 
 7 Hr Django + React
 https://youtu.be/VBqJ0-imSMU
@@ -26,6 +29,5 @@ https://courses.prettyprinted.com/courses/303769/lectures/4674920
 https://medium.com/@pdipesh/django-rest-framework-permissions-example-8ed9809c432d
 
 # For Django Celery + RabbitMQ
-https://www.youtube.com/watch?v=fBfzE0yk97k&list=PLOLrQ9Pn6caz-6WpcBYxV84g9gwptoN20&ab_channel=VeryAcademy
 https://www.youtube.com/watch?v=Sre0SJEpiaU&list=PL1WVjBsN-_NLBFi3lU4xnwy-AFTbdbxiX&ab_channel=AaravTech
 https://www.youtube.com/playlist?list=PLOLrQ9Pn6caz-6WpcBYxV84g9gwptoN20

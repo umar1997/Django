@@ -2,6 +2,7 @@ SET UP PROJECT AND APP
 ----------------------
 # In project directory make project with this.
 django-admin startproject firstProject(Name of Project)
+django-admin startproject Core .
 
 # Run to see if django set up is properly working
 python manage.py runserver
