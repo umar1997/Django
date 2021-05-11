@@ -1,0 +1,72 @@
+python manage.py shell
+
+SELECT * FROM STUDENT
+student = Student.objects.all() 				# All fields in the student model
+students.query									# Prints SQL query
+
+from django.db import connection
+print(connection.queries)						# Gives limit and Time
+
+OR
+-----
+posts = Student.objects.filter(surname__startswith='austin') | Student.objects.filter(surname__startswith='baldwin')
+
+from django.db.models import Q
+
+posts = Student.objects.filter(Q(surname__startswith='austin') | ~Q (surname__startswith='baldwin') | Q (surname__startswith='avery-parker'))
+
+
+AND
+------
+posts = Student.objects.filter(classroom=1) & Student.objects.filter(age=20)
+
+posts = Student.objects.filter(Q(surname__startswith='baldwin')&Q(firstname__startswith='lakisha'))
+
+UNION
+--------
+posts = Student.objects.all().values_list("firstname").union(Teacher.objects.all().values_list("firstname"))		
+
+# values instead of values_list gives in dict form
+
+EXCLUDE
+---------
+
+posts = Student.objects.exclude(age__gt=19)
+
+    # gt
+    # gte
+    # lt
+    # lte
+
+posts = Student.objects.filter(~Q(age__gt=20)&~Q(surname__startswith='baldwin'))
+
+DISTINCT
+---------
+Author.objects.distinct()
+
+ORDER BY
+--------
+Entry.objects.order_by('pub_date', 'author').distinct('author')
+
+# Order by pub date then author
+
+
+DATETIME
+----------
+Entry.objects.exclude(pub_date__gt=datetime.date(2005, 1, 3), headline='Hello')
+
+SELECT ...
+WHERE NOT (pub_date > '2005-1-3' AND headline = 'Hello')
+
+
+Entry.objects.exclude(pub_date__gt=datetime.date(2005, 1, 3)).exclude(headline='Hello')
+
+SELECT ...
+WHERE NOT pub_date > '2005-1-3'
+AND NOT headline = 'Hello'
+
+
+SELECT & OUTPUT INDIVIDUAL FILEDS
+----------------------------------
+
+posts = Student.objects.filter(classroom=1).only('firstname','age')
