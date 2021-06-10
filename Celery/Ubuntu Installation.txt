@@ -1,0 +1,33 @@
+######################################## VirtualEnvironment
+1)
+sudo apt-get install -y python3-venv
+2)
+python3 -m venv newEnvironment
+3)
+source newEnvironment/bin/activate
+
+######################################## Celery
+4)
+pip install django
+5)
+django-admin startproject Core .
+6)
+pip install celery
+7)
+celery.py file in settings.py folder
+
+
+8)
+celery -A Core worker -l info
+
+######################################## RabbitMQ
+7)
+sudo apt-get install rabbitmq-server
+8)
+sudo systemctl enable rabbitmq-server
+9)
+sudo systemctl start rabbitmq-server
+10)
+sudo systemctl status rabbitmq-server
+11)
+sudo rabbitmqctl stop

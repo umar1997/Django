@@ -1,0 +1,82 @@
+lost_7@live.com
+test12345
+
+
+
+#################################################
+POST
+Register User
+http://127.0.0.1:8000/api/user/register/
+{
+    "username" : "Hamza Humayun",  				# Field required check
+    "email" : "hamza@gmail.com",				# Field required check
+    "phone_number" : "+92-3004090345",			# Field required check
+    											# Regex check	
+    "password" : "hamza12345",					# Fields required check
+    "password2" : "hamza12345"      			# Password did not match check
+    											# Greater than 8 characters check
+}
+
+#################################################
+GET, PUT, DELETE
+Get Profile
+http://127.0.0.1:8000/api/user/<str:pk>/
+http://127.0.0.1:8000/api/user/profile/01bb7b76-8956-4567-a67c-2e63e054bd23/
+
+# GET Everyone can GET a User Profile
+
+# PUT Only Owner can EDIT a User Profile
+{
+    "email": "hamza.hu97@gmail.com",
+    "username": "Hamza Humayun",
+    "phone_number": "+92-3331473395"
+}
+
+# DELETE Only Owner can DELETE a User Profile
+
+#################################################
+POST
+Login User
+http://127.0.0.1:8000/api/user/login/
+
+{
+    "email" : "hamza@gmail.com",				# Account doesn't exist check
+    "password" : "hamza12345",					# Password field required
+}
+
+#################################################
+POST
+Request Reset Password Email
+http://127.0.0.1:8000/api/user/reset-email/
+
+{
+    "email" : "lost_7@live.com"					# Check for if account exists
+}
+
+#################################################
+GET
+Link from Email
+http://127.0.0.1:8000/api/user/password-reset/<uidb64>/<token>/
+
+#################################################
+PATCH
+Set New Password
+http://127.0.0.1:8000/api/user/password-reset-complete/
+
+{
+	"uidb64" : "ZThhYWNlNTktNTIwMS00MmI1LThhZjktNWIxMmZkNjg5MjUw", 
+	"token" : "alova5-ccc7d021e5eaf953ba5192ba9e8ee9c4"
+	"password" : "lost12345"
+}
+
+
+#################################################
+PUT
+Change Password
+http://127.0.0.1:8000/api/user/change_password/
+
+{
+    "old_password": "lost12345", 			# Old password must be correct
+    "password": "test12345", 				# Both passwords must match
+    "password2": "test12345"
+}

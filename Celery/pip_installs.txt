@@ -1,0 +1,40 @@
+Command Reference
+################
+
+################################################	Celery
+# Install celery
+    pip install celery
+
+################################################## celery.py
+celery.py in Settings.py folder
+
+tasks.py in Task1 folder
+
+################################################## Run Celery Worker
+
+# Run Celery
+    celery -A <NAMEOFINSTANCE? worker --loglevel=info
+
+    celery -A Core worker --loglevel=info
+
+    [Windows OS]
+    celery -A core worker -l info --pool=solo
+
+##################################################
+# Run RabbitMQ (On Windows)
+
+Run:
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.8.6\sbin\rabbitmq-server.bat
+
+#Run First Task
+    py manage.py shell
+    from task1.tasks import add
+    add.delay(2, 2)
+
+    or
+
+    add.apply_async((2, 2), countdown=5)
+
+#Useful commands
+    #Show message on completion of task
+        logger.info("Sent review email")
